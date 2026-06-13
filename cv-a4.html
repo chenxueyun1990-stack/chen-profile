@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&family=Noto+Sans+SC:wght@300;400;500;700&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    .sc-placeholder{background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;overflow:hidden}
+    @keyframes sc-shine{0%{background-position:100% 50%}100%{background-position:0% 50%}}
+    @keyframes sc-veil-pulse{0%,100%{opacity:.4}50%{opacity:1}}
+    html.sc-dc-streaming .sc-placeholder,
+    html.sc-dc-streaming .sc-interp.sc-missing{position:relative;
+      background:color-mix(in srgb,currentColor 5%,transparent);
+      border-color:transparent}
+    html.sc-dc-streaming .sc-placeholder::before,
+    html.sc-dc-streaming .sc-interp.sc-missing::before{content:'';
+      position:absolute;inset:0;pointer-events:none;
+      background:linear-gradient(90deg,rgba(217,119,87,0) 25%,rgba(247,225,211,.95) 37%,rgba(217,119,87,0) 63%);
+      background-size:400% 100%;animation:sc-shine .73s ease infinite}
+    html.sc-dc-streaming::after{content:'';position:fixed;inset:0;
+      z-index:2147483646;pointer-events:none;
+      box-shadow:inset 0 0 90px rgba(217,119,87,.16),inset 0 0 22px rgba(217,119,87,.1);
+      animation:sc-veil-pulse 1.36s ease-in-out infinite}
+    .sc-placeholder-error{padding:4px 8px;font:11px/1.4 ui-monospace,monospace;
+      color:rgba(0,0,0,.7);word-break:break-word}
+    .sc-interp.sc-missing{display:inline-block;width:2em;height:1em;overflow:hidden;
+      vertical-align:text-bottom;background:rgba(255,255,255,.3);border:1px solid rgba(0,0,0,.5);
+      border-radius:2px;box-sizing:border-box;color:transparent;
+      user-select:none}
+    .sc-interp.sc-unresolved{font-family:ui-monospace,monospace;font-size:.85em;
+      color:rgba(0,0,0,.5);background:rgba(0,0,0,.05);border-radius:3px;
+      padding:0 3px}
+    .sc-host.sc-has-error{position:relative}
+    .sc-logic-error{position:absolute;top:8px;left:8px;z-index:2147483647;max-width:60ch;
+      padding:6px 10px;background:#b00020;color:#fff;font:12px/1.4 ui-monospace,monospace;
+      border-radius:4px;white-space:pre-wrap;pointer-events:none}
+    /* Mirrors PRINT_BASELINE_CSS in apps/web deck-stage-export.ts — keep both
+       in sync until dc-runtime regains a build step. */
+    @media print {
+      @page { margin: 0.5cm; }
+      html, body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      section, article, figure, table { break-inside: avoid; }
+      *, *::before, *::after {
+        animation-delay: -99s !important; animation-duration: .001s !important;
+        animation-iteration-count: 1 !important; animation-fill-mode: both !important;
+        animation-play-state: running !important; transition-duration: 0s !important;
+      }
+    }
+  </style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>x-dc{display:none!important}</style><style>html,body{height:100%;margin:0}#dc-root,#dc-root>.sc-host{height:100%}</style><style data-dc-tpl="3">/* cyrillic-ext */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+/* cyrillic-ext */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+/* cyrillic-ext */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+/* cyrillic-ext */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+/* cyrillic-ext */
+
+/* cyrillic */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+/* cyrillic-ext */
+
+/* cyrillic */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* cyrillic */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* cyrillic */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* cyrillic */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* cyrillic */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* cyrillic */
+
+/* vietnamese */
+
+/* latin-ext */
+
+/* latin */
+
+</style><style data-dc-tpl="4">
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ background:#E2E0D8; }
+  ::selection{ background:#18170F; color:#FCFBF8; }
+  @page{ size:A4 landscape; margin:0; }
+  @media print{
+    body{ background:#fff; }
+    .workspace{ padding:0 !important; gap:0 !important; }
+    .sheet{ box-shadow:none !important; }
+  }
+</style></head>
+<body>
+
+<div id="dc-root"><div class="sc-host" data-sc-name="Chen-Profile-A4"><div data-dc-tpl="5" class="workspace" style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 40px 24px; font-family: &quot;Noto Sans SC&quot;, sans-serif;">
+
+  
+  <div data-dc-tpl="6" class="sheet" style="position: relative; width: 1123px; height: 794px; flex: 0 0 auto; background: rgb(252, 251, 248); box-shadow: rgba(20, 24, 18, 0.18) 0px 18px 50px; overflow: hidden; padding: 50px 58px 42px;">
+
+    <div data-dc-tpl="7" style="display: flex; align-items: center; justify-content: space-between; font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(166, 164, 152);">
+      <span data-dc-tpl="8" style="color: rgb(111, 109, 100);">Curriculum Vitae · 2026</span>
+      <span data-dc-tpl="9">中英对照 · Bilingual</span>
+    </div>
+    <div data-dc-tpl="10" style="height: 1px; background: rgb(24, 23, 15); margin-top: 10px;"></div>
+
+    
+    <div data-dc-tpl="11" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; margin-top: 24px;">
+      <div data-dc-tpl="12" style="flex: 1 1 0%; min-width: 0px;">
+        <h1 data-dc-tpl="13" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 38px; line-height: 1; color: rgb(24, 23, 15); letter-spacing: 0.16em;">陈雪韵</h1>
+        <div data-dc-tpl="14" style="margin-top: 14px; display: flex; align-items: center; gap: 13px; flex-wrap: wrap;">
+          <span data-dc-tpl="15" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-weight: 400; font-size: 12.5px; letter-spacing: 0.4em; text-transform: uppercase; color: rgb(133, 131, 122);">Chen&nbsp;Xueyun</span>
+          <span data-dc-tpl="16" style="width: 16px; height: 1px; background: rgb(201, 198, 186);"></span>
+          <span data-dc-tpl="17" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 400; font-size: 13.5px; color: rgb(70, 69, 59); letter-spacing: 0.04em;">产业投资人 · 联合创始人</span>
+          <span data-dc-tpl="18" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-weight: 400; font-size: 12.5px; color: rgb(154, 152, 142);">Industrial Investor &amp; Co-founder</span>
+        </div>
+      </div>
+      <img data-dc-tpl="19" src="photo.jpg" alt="陈雪韵" style="flex: 0 0 auto; width: 102px; height: 128px; object-fit: cover; object-position: center top; filter: contrast(1.01) saturate(1.02); border: 1px solid rgb(218, 215, 204);">
+    </div>
+
+    <div data-dc-tpl="20" style="height: 1px; background: rgb(231, 229, 221); margin-top: 20px;"></div>
+
+    
+    <div data-dc-tpl="21" style="display: grid; grid-template-columns: 300px 1fr; gap: 0px; margin-top: 30px;">
+
+      
+      <div data-dc-tpl="22" style="padding-right: 36px; border-right: 1px solid rgb(231, 229, 221); display: flex; flex-direction: column; gap: 32px;">
+
+        <div data-dc-tpl="23">
+          <div data-dc-tpl="24" style="display: flex; align-items: baseline; gap: 10px;">
+            <h3 data-dc-tpl="25" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); letter-spacing: 0.05em;">教育背景</h3>
+            <span data-dc-tpl="26" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 10px; color: rgb(166, 164, 152); letter-spacing: 0.2em; text-transform: uppercase;">Education</span>
+            <span data-dc-tpl="27" style="flex: 1 1 0%; height: 1px; background: rgb(237, 235, 227);"></span>
+          </div>
+          <div data-dc-tpl="28" style="margin-top: 11px; display: flex; flex-direction: column; gap: 11px;">
+            <div data-dc-tpl="29" style="display: flex; gap: 12px;">
+              <span data-dc-tpl="30" style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11px; color: rgb(154, 152, 142); min-width: 58px; padding-top: 1px;">2007–11</span>
+              <div data-dc-tpl="31">
+                <div data-dc-tpl="32" style="font-size: 12px; color: rgb(44, 44, 34); line-height: 1.5;">清华大学 · 环境工程系</div>
+                <div data-dc-tpl="33" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 152, 142); line-height: 1.45;">Tsinghua University</div>
+              </div>
+            </div>
+            <div data-dc-tpl="34" style="display: flex; gap: 12px;">
+              <span data-dc-tpl="35" style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 11px; color: rgb(154, 152, 142); min-width: 58px; padding-top: 1px;">2020</span>
+              <div data-dc-tpl="36">
+                <div data-dc-tpl="37" style="font-size: 12px; color: rgb(44, 44, 34); line-height: 1.5;">清华 – Kelley 商学院</div>
+                <div data-dc-tpl="38" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 152, 142); line-height: 1.45;">Tsinghua – Kelley School of Business</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-dc-tpl="39">
+          <div data-dc-tpl="40" style="display: flex; align-items: baseline; gap: 10px;">
+            <h3 data-dc-tpl="41" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); letter-spacing: 0.05em;">现任</h3>
+            <span data-dc-tpl="42" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 10px; color: rgb(142, 47, 58); letter-spacing: 0.2em; text-transform: uppercase;">Now</span>
+            <span data-dc-tpl="43" style="flex: 1 1 0%; height: 1px; background: rgb(237, 235, 227);"></span>
+          </div>
+          <div data-dc-tpl="44" style="margin-top: 10px;">
+            <div data-dc-tpl="45" style="font-size: 12.5px; font-weight: 500; color: rgb(24, 23, 15); line-height: 1.55;">12 寸晶圆厂（55nm 及更先进制程）</div>
+            <div data-dc-tpl="46" style="font-size: 11.5px; color: rgb(111, 109, 100); line-height: 1.5; margin-top: 1px;">高级副总裁</div>
+            <div data-dc-tpl="47" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 152, 142); line-height: 1.5; margin-top: 3px;">Senior Vice President · 12-inch Wafer Fab</div>
+          </div>
+        </div>
+
+        <div data-dc-tpl="48">
+          <div data-dc-tpl="49" style="display: flex; align-items: baseline; gap: 10px;">
+            <h3 data-dc-tpl="50" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); letter-spacing: 0.05em;">专业资质</h3>
+            <span data-dc-tpl="51" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 10px; color: rgb(166, 164, 152); letter-spacing: 0.2em; text-transform: uppercase;">Qualifications</span>
+            <span data-dc-tpl="52" style="flex: 1 1 0%; height: 1px; background: rgb(237, 235, 227);"></span>
+          </div>
+          <div data-dc-tpl="53" style="margin-top: 11px; display: flex; flex-direction: column; gap: 9px;">
+            <div data-dc-tpl="54">
+              <div data-dc-tpl="55" style="font-size: 12px; color: rgb(44, 44, 34); line-height: 1.5;">CFA 二级</div>
+              <div data-dc-tpl="56" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 152, 142); line-height: 1.4;">CFA Level II</div>
+            </div>
+            <div data-dc-tpl="57">
+              <div data-dc-tpl="58" style="font-size: 12px; color: rgb(44, 44, 34); line-height: 1.5;">AI 人工智能训练师（三级 / 高级）</div>
+              <div data-dc-tpl="59" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 152, 142); line-height: 1.4;">AI Trainer · Level 3 / Senior</div>
+            </div>
+            <div data-dc-tpl="60">
+              <div data-dc-tpl="61" style="font-size: 12px; color: rgb(44, 44, 34); line-height: 1.5;">AI 智能体应用工程师（工信部）</div>
+              <div data-dc-tpl="62" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 152, 142); line-height: 1.4;">AI Agent Engineer · MIIT</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      <div data-dc-tpl="63" style="padding-left: 36px; display: flex; flex-direction: column; gap: 38px;">
+
+        <div data-dc-tpl="64">
+          <div data-dc-tpl="65" style="display: flex; align-items: baseline; gap: 12px;">
+            <h2 data-dc-tpl="66" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 15px; color: rgb(24, 23, 15); letter-spacing: 0.05em;">职业概述</h2>
+            <span data-dc-tpl="67" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 12px; color: rgb(166, 164, 152); letter-spacing: 0.18em; text-transform: uppercase;">Profile</span>
+            <span data-dc-tpl="68" style="flex: 1 1 0%; height: 1px; background: rgb(231, 229, 221);"></span>
+          </div>
+          <p data-dc-tpl="69" style="margin-top: 12px; font-size: 12px; line-height: 1.85; color: rgb(51, 51, 42); text-align: justify; font-weight: 300;">陈雪韵女士（1990）是一位兼具产业运营与专业投资背景的企业创始人 / 高管，拥有逾十年综合管理经验，职业生涯横跨集成电路制造、新能源、互联网及股权 / 证券投资等领域。现任 12 寸晶圆厂（55nm 及更先进制程）高级副总裁，分管投融资、发展规划、供应链及法务等核心职能；曾任顶级投资机构负责人、上市公司执行副总裁。</p>
+          <p data-dc-tpl="70" style="margin-top: 9px; font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 12px; line-height: 1.6; color: rgb(90, 88, 78); text-align: justify;">Ms. Chen Xueyun (b. 1990) is a founder and senior executive with a dual background in industrial operations and professional investment. She currently serves as Senior Vice President at a leading 12-inch wafer fab (55nm and more advanced nodes), overseeing investment &amp; financing, development planning, supply chain and legal affairs; previously head of a top-tier investment institution and EVP of a listed company.</p>
+        </div>
+
+        <div data-dc-tpl="71">
+          <div data-dc-tpl="72" style="display: flex; align-items: baseline; gap: 12px;">
+            <h2 data-dc-tpl="73" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 15px; color: rgb(24, 23, 15); letter-spacing: 0.05em;">专精领域</h2>
+            <span data-dc-tpl="74" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 12px; color: rgb(166, 164, 152); letter-spacing: 0.18em; text-transform: uppercase;">Expertise</span>
+            <span data-dc-tpl="75" style="flex: 1 1 0%; height: 1px; background: rgb(231, 229, 221);"></span>
+          </div>
+          <div data-dc-tpl="76" style="margin-top: 16px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0px 28px;">
+            <div data-dc-tpl="77">
+              <div data-dc-tpl="78" style="display: flex; align-items: center; gap: 8px; margin-bottom: 11px;">
+                <span data-dc-tpl="79" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(142, 47, 58);">投资 / Investment</span>
+                <span data-dc-tpl="80" style="flex: 1 1 0%; height: 1px; background: rgb(237, 235, 227);"></span>
+              </div>
+              <div data-dc-tpl="81" style="display: flex; flex-direction: column; gap: 11px;">
+                <div data-dc-tpl="82"><div data-dc-tpl="83" style="font-weight: 500; font-size: 12.5px; color: rgb(24, 23, 15); letter-spacing: 0.03em;">产业投资</div><div data-dc-tpl="84" style="font-size: 10px; color: rgb(121, 119, 109); line-height: 1.4; margin-top: 2px;">主题基金募投管退 · 并购重组</div></div>
+                <div data-dc-tpl="85"><div data-dc-tpl="86" style="font-weight: 500; font-size: 12.5px; color: rgb(24, 23, 15); letter-spacing: 0.03em;">资本市场</div><div data-dc-tpl="87" style="font-size: 10px; color: rgb(121, 119, 109); line-height: 1.4; margin-top: 2px;">股权 / 证券投资 · 投融资架构 · CFA II</div></div>
+              </div>
+            </div>
+            <div data-dc-tpl="88">
+              <div data-dc-tpl="89" style="display: flex; align-items: center; gap: 8px; margin-bottom: 11px;">
+                <span data-dc-tpl="90" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(142, 47, 58);">产业管理 / Management</span>
+                <span data-dc-tpl="91" style="flex: 1 1 0%; height: 1px; background: rgb(237, 235, 227);"></span>
+              </div>
+              <div data-dc-tpl="92" style="display: flex; flex-direction: column; gap: 11px;">
+                <div data-dc-tpl="93"><div data-dc-tpl="94" style="font-weight: 500; font-size: 12.5px; color: rgb(24, 23, 15); letter-spacing: 0.03em;">战略与投融资</div><div data-dc-tpl="95" style="font-size: 10px; color: rgb(121, 119, 109); line-height: 1.4; margin-top: 2px;">发展规划 · 新产能建设</div></div>
+                <div data-dc-tpl="96"><div data-dc-tpl="97" style="font-weight: 500; font-size: 12.5px; color: rgb(24, 23, 15); letter-spacing: 0.03em;">运营与风控</div><div data-dc-tpl="98" style="font-size: 10px; color: rgb(121, 119, 109); line-height: 1.4; margin-top: 2px;">经营管理 · 供应链统筹 · 法务合规</div></div>
+              </div>
+            </div>
+            <div data-dc-tpl="99">
+              <div data-dc-tpl="100" style="display: flex; align-items: center; gap: 8px; margin-bottom: 11px;">
+                <span data-dc-tpl="101" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(142, 47, 58);">业务领域 / Domains</span>
+                <span data-dc-tpl="102" style="flex: 1 1 0%; height: 1px; background: rgb(237, 235, 227);"></span>
+              </div>
+              <div data-dc-tpl="103" style="display: flex; flex-direction: column; gap: 11px;">
+                <div data-dc-tpl="104"><div data-dc-tpl="105" style="font-weight: 500; font-size: 12.5px; color: rgb(24, 23, 15); letter-spacing: 0.03em;">半导体</div><div data-dc-tpl="106" style="font-size: 10px; color: rgb(121, 119, 109); line-height: 1.4; margin-top: 2px;">12 寸晶圆制造 · AI 芯片 · 产能建设</div></div>
+                <div data-dc-tpl="107"><div data-dc-tpl="108" style="font-weight: 500; font-size: 12.5px; color: rgb(24, 23, 15); letter-spacing: 0.03em;">人工智能</div><div data-dc-tpl="109" style="font-size: 10px; color: rgb(121, 119, 109); line-height: 1.4; margin-top: 2px;">AIDC · AI 应用</div></div>
+                <div data-dc-tpl="110"><div data-dc-tpl="111" style="font-weight: 500; font-size: 12.5px; color: rgb(24, 23, 15); letter-spacing: 0.03em;">新能源</div><div data-dc-tpl="112" style="font-size: 10px; color: rgb(121, 119, 109); line-height: 1.4; margin-top: 2px;">算电协同 · 综合能源出海</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-dc-tpl="113" style="position: absolute; left: 58px; right: 58px; bottom: 22px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgb(231, 229, 221); padding-top: 9px; font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(174, 172, 158);">
+      <span data-dc-tpl="114" style="text-transform: none;">邮箱 · <span data-dc-tpl="115" id="cx-email-a4">chenxueyun1990@gmail.com</span></span>
+      <span data-dc-tpl="116">01 / 02</span>
+    </div>
+  </div>
+
+  
+  <div data-dc-tpl="117" class="sheet" style="position: relative; width: 1123px; height: 794px; flex: 0 0 auto; background: rgb(252, 251, 248); box-shadow: rgba(20, 24, 18, 0.18) 0px 18px 50px; overflow: hidden; padding: 50px 58px 42px;">
+
+    <div data-dc-tpl="118" style="display: flex; align-items: center; justify-content: space-between; font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: rgb(166, 164, 152);">
+      <span data-dc-tpl="119" style="color: rgb(111, 109, 100);">Confidential · 仅供交流</span>
+      <span data-dc-tpl="120">工作经历 · Experience</span>
+    </div>
+    <div data-dc-tpl="121" style="height: 1px; background: rgb(24, 23, 15); margin-top: 10px;"></div>
+
+    <div data-dc-tpl="122" style="display: flex; align-items: baseline; gap: 13px; margin-top: 24px;">
+      <h2 data-dc-tpl="123" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 18px; color: rgb(24, 23, 15); letter-spacing: 0.05em;">工作经历</h2>
+      <span data-dc-tpl="124" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 13px; color: rgb(166, 164, 152); letter-spacing: 0.18em; text-transform: uppercase;">Professional&nbsp;Experience</span>
+      <span data-dc-tpl="125" style="flex: 1 1 0%; height: 1px; background: rgb(231, 229, 221);"></span>
+    </div>
+
+    <div data-dc-tpl="126" style="margin-top: 6px;">
+      
+        <div data-dc-tpl="128" style="display: grid; grid-template-columns: 90px 1fr 1px 1fr; gap: 0px 26px; align-items: start; padding: 13px 0px; border-top: 1px solid rgb(238, 236, 228);">
+          <div data-dc-tpl="129" style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 13px; color: rgb(24, 23, 15); letter-spacing: 0.01em; line-height: 1.4; padding-top: 2px;"><span class="sc-interp">2023–26</span></div>
+          <div data-dc-tpl="130" style="padding-right: 6px;">
+            <div data-dc-tpl="131" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); line-height: 1.45;"><span class="sc-interp">集成电路制造（晶圆代工）</span></div>
+            <div data-dc-tpl="132" style="font-size: 10.5px; color: rgb(111, 109, 100); line-height: 1.45; margin: 2px 0px 5px;"><span class="sc-interp">高级副总裁</span></div>
+            <div data-dc-tpl="133" style="font-size: 10.5px; line-height: 1.62; color: rgb(90, 88, 78); text-align: justify; font-weight: 300;"><span class="sc-interp">作为核心管理层参与公司重大经营决策；主导战略性投融资与新产能建设规划，统筹供应链与采购体系，牵头国家级重大项目申报，搭建法务合规与风险管控体系，系统性推动产能扩张与组织发展。</span></div>
+          </div>
+          <span data-dc-tpl="134" style="background: rgb(238, 236, 228);"></span>
+          <div data-dc-tpl="135" style="padding-left: 20px;">
+            <div data-dc-tpl="136" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); line-height: 1.4;"><span class="sc-interp">IC Manufacturer · Wafer Foundry</span></div>
+            <div data-dc-tpl="137" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 135, 121); line-height: 1.4; margin: 2px 0px 5px;"><span class="sc-interp">Senior Vice President</span></div>
+            <div data-dc-tpl="138" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11.5px; line-height: 1.5; color: rgb(90, 88, 78); text-align: justify;"><span class="sc-interp">As a core member of management, led strategic investment &amp; financing and new-capacity planning, coordinated supply chain &amp; procurement, spearheaded national-level project applications, and built the legal-compliance and risk-control framework.</span></div>
+          </div>
+        </div>
+      
+        <div data-dc-tpl="128" style="display: grid; grid-template-columns: 90px 1fr 1px 1fr; gap: 0px 26px; align-items: start; padding: 13px 0px; border-top: 1px solid rgb(238, 236, 228);">
+          <div data-dc-tpl="129" style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 13px; color: rgb(24, 23, 15); letter-spacing: 0.01em; line-height: 1.4; padding-top: 2px;"><span class="sc-interp">2022–23</span></div>
+          <div data-dc-tpl="130" style="padding-right: 6px;">
+            <div data-dc-tpl="131" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); line-height: 1.45;"><span class="sc-interp">上市公司（新能源）</span></div>
+            <div data-dc-tpl="132" style="font-size: 10.5px; color: rgb(111, 109, 100); line-height: 1.45; margin: 2px 0px 5px;"><span class="sc-interp">执行副总裁</span></div>
+            <div data-dc-tpl="133" style="font-size: 10.5px; line-height: 1.62; color: rgb(90, 88, 78); text-align: justify; font-weight: 300;"><span class="sc-interp">参与公司最高决策，全面负责产能建设、供应链管理、战略性投融资、中长期发展规划及上下游协同，在商业布局中展现卓越管理才能与战略远见。</span></div>
+          </div>
+          <span data-dc-tpl="134" style="background: rgb(238, 236, 228);"></span>
+          <div data-dc-tpl="135" style="padding-left: 20px;">
+            <div data-dc-tpl="136" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); line-height: 1.4;"><span class="sc-interp">Listed Company · New Energy</span></div>
+            <div data-dc-tpl="137" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 135, 121); line-height: 1.4; margin: 2px 0px 5px;"><span class="sc-interp">Executive Vice President</span></div>
+            <div data-dc-tpl="138" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11.5px; line-height: 1.5; color: rgb(90, 88, 78); text-align: justify;"><span class="sc-interp">Took part in top-level decision-making with overall responsibility for capacity construction, supply chain, strategic investment &amp; financing, long-term planning and upstream-downstream coordination.</span></div>
+          </div>
+        </div>
+      
+        <div data-dc-tpl="128" style="display: grid; grid-template-columns: 90px 1fr 1px 1fr; gap: 0px 26px; align-items: start; padding: 13px 0px; border-top: 1px solid rgb(238, 236, 228);">
+          <div data-dc-tpl="129" style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 13px; color: rgb(24, 23, 15); letter-spacing: 0.01em; line-height: 1.4; padding-top: 2px;"><span class="sc-interp">2018–22</span></div>
+          <div data-dc-tpl="130" style="padding-right: 6px;">
+            <div data-dc-tpl="131" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); line-height: 1.45;"><span class="sc-interp">鼎晖投资</span></div>
+            <div data-dc-tpl="132" style="font-size: 10.5px; color: rgb(111, 109, 100); line-height: 1.45; margin: 2px 0px 5px;"><span class="sc-interp">机构部高级总监 · 新兴市场 / 科技出海基金负责人</span></div>
+            <div data-dc-tpl="133" style="font-size: 10.5px; line-height: 1.62; color: rgb(90, 88, 78); text-align: justify; font-weight: 300;"><span class="sc-interp">主导设计与多家上市公司合作的产业基金结构；完成半导体、生物医疗等多支主题基金募集，深度评估子基金储备项目逾百项，并在半导体领域主导多家 AI 芯片设计公司投资，积累广泛行业资源。</span></div>
+          </div>
+          <span data-dc-tpl="134" style="background: rgb(238, 236, 228);"></span>
+          <div data-dc-tpl="135" style="padding-left: 20px;">
+            <div data-dc-tpl="136" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); line-height: 1.4;"><span class="sc-interp">CDH Investments</span></div>
+            <div data-dc-tpl="137" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 135, 121); line-height: 1.4; margin: 2px 0px 5px;"><span class="sc-interp">Senior Director · Head, Emerging-Markets Fund</span></div>
+            <div data-dc-tpl="138" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11.5px; line-height: 1.5; color: rgb(90, 88, 78); text-align: justify;"><span class="sc-interp">Designed industrial-fund structures with listed-company partners; raised capital for semiconductor &amp; biopharma funds, evaluated 100+ reserve sub-fund projects, and led investments in several AI chip-design companies.</span></div>
+          </div>
+        </div>
+      
+        <div data-dc-tpl="128" style="display: grid; grid-template-columns: 90px 1fr 1px 1fr; gap: 0px 26px; align-items: start; padding: 13px 0px; border-top: 1px solid rgb(238, 236, 228);">
+          <div data-dc-tpl="129" style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 13px; color: rgb(24, 23, 15); letter-spacing: 0.01em; line-height: 1.4; padding-top: 2px;"><span class="sc-interp">2014–18</span></div>
+          <div data-dc-tpl="130" style="padding-right: 6px;">
+            <div data-dc-tpl="131" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); line-height: 1.45;"><span class="sc-interp">上市公司（AIGC）</span></div>
+            <div data-dc-tpl="132" style="font-size: 10.5px; color: rgb(111, 109, 100); line-height: 1.45; margin: 2px 0px 5px;"><span class="sc-interp">集团泛阅读事业部总监 · 北京分公司教育部副总经理</span></div>
+            <div data-dc-tpl="133" style="font-size: 10.5px; line-height: 1.62; color: rgb(90, 88, 78); text-align: justify; font-weight: 300;"><span class="sc-interp">全面负责分公司业务运营及销售体系管理，后期主导集团战略规划，积累扎实的业务管理、销售团队建设与市场开拓经验。</span></div>
+          </div>
+          <span data-dc-tpl="134" style="background: rgb(238, 236, 228);"></span>
+          <div data-dc-tpl="135" style="padding-left: 20px;">
+            <div data-dc-tpl="136" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); line-height: 1.4;"><span class="sc-interp">Listed Company · AIGC</span></div>
+            <div data-dc-tpl="137" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 135, 121); line-height: 1.4; margin: 2px 0px 5px;"><span class="sc-interp">Director, Pan-Reading Division · Deputy GM, Education (Beijing)</span></div>
+            <div data-dc-tpl="138" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11.5px; line-height: 1.5; color: rgb(90, 88, 78); text-align: justify;"><span class="sc-interp">Led branch operations and sales-system management, later overseeing group strategic planning; built a solid foundation in business management, sales-team building and market expansion.</span></div>
+          </div>
+        </div>
+      
+        <div data-dc-tpl="128" style="display: grid; grid-template-columns: 90px 1fr 1px 1fr; gap: 0px 26px; align-items: start; padding: 13px 0px; border-top: 1px solid rgb(238, 236, 228);">
+          <div data-dc-tpl="129" style="font-family: &quot;IBM Plex Mono&quot;, monospace; font-size: 13px; color: rgb(24, 23, 15); letter-spacing: 0.01em; line-height: 1.4; padding-top: 2px;"><span class="sc-interp">2011–14</span></div>
+          <div data-dc-tpl="130" style="padding-right: 6px;">
+            <div data-dc-tpl="131" style="font-family: &quot;Noto Sans SC&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); line-height: 1.45;"><span class="sc-interp">早期职业经历</span></div>
+            <div data-dc-tpl="132" style="font-size: 10.5px; color: rgb(111, 109, 100); line-height: 1.45; margin: 2px 0px 5px;"><span class="sc-interp">新浪 / 新浪微博 · 车库咖啡 · 茂信资本</span></div>
+            <div data-dc-tpl="133" style="font-size: 10.5px; line-height: 1.62; color: rgb(90, 88, 78); text-align: justify; font-weight: 300;"><span class="sc-interp">专注 TMT 及消费领域，参与逾 60 个项目的行业研究、项目发掘及尽职调查，奠定扎实的投资与行业分析基础。</span></div>
+          </div>
+          <span data-dc-tpl="134" style="background: rgb(238, 236, 228);"></span>
+          <div data-dc-tpl="135" style="padding-left: 20px;">
+            <div data-dc-tpl="136" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-weight: 500; font-size: 13px; color: rgb(24, 23, 15); line-height: 1.4;"><span class="sc-interp">Early Career</span></div>
+            <div data-dc-tpl="137" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11px; color: rgb(154, 135, 121); line-height: 1.4; margin: 2px 0px 5px;"><span class="sc-interp">Sina / Weibo · Garage Cafe · Maoxin Capital</span></div>
+            <div data-dc-tpl="138" style="font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 11.5px; line-height: 1.5; color: rgb(90, 88, 78); text-align: justify;"><span class="sc-interp">Focused on TMT and consumer sectors; conducted industry research, deal sourcing and due diligence across 60+ projects, building a solid investment foundation.</span></div>
+          </div>
+        </div>
+      
+    </div>
+
+    <div data-dc-tpl="139" style="position: absolute; left: 58px; right: 58px; bottom: 22px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid rgb(231, 229, 221); padding-top: 9px; font-family: &quot;Hanken Grotesk&quot;, sans-serif; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgb(174, 172, 158);">
+      <span data-dc-tpl="140">Confidential</span>
+      <span data-dc-tpl="141">02 / 02</span>
+    </div>
+  </div></div></div></div>
+
+
+
+</body></html>
